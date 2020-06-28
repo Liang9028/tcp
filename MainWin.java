@@ -11,6 +11,9 @@ import jpcap.JpcapCaptor;
 import jpcap.NetworkInterface;   
 import jpcap.PacketReceiver;   
 import jpcap.packet.Packet; 
+/*
+  ç•Œé¢å®ç°
+*/
 public class MainWin extends JFrame {
       mycap mycap= new mycap();
       NetworkInterface devices;
@@ -23,32 +26,32 @@ public class MainWin extends JFrame {
    	      c.setLayout(new GridBagLayout());
    	           }
    	      public  void kaishi () {
-   	    	 //ÎÄ±¾ÄÚÈİ
+   	    	 //æ–‡æœ¬å†…å®¹
    		  JLabel l=new JLabel();
    		  GridBagConstraints g=new GridBagConstraints();
 	      g.gridx=2;   g.gridy=0;
 	      g.gridheight=2; g.gridwidth=6;
 	      c.add(l,g);
    	      NetworkInterface[] item = mycap.getdevices();
-   	      //ÏÂÀ­¿ò
+   	      //ä¸‹æ‹‰æ¡†
    	      JComboBox<NetworkInterface> box=new JComboBox<>(item);
    	      GridBagConstraints g1=new GridBagConstraints();
    	      g1.gridx=0;   g1.gridy=0;
    	      g1.gridheight=2; g1.gridwidth=2;
    	      c.add(box,g1);
    	      devices = (NetworkInterface)box.getSelectedItem();
-   	      //¿ªÊ¼°´Å¥
-   	      JButton b=new JButton("¿ªÊ¼");
+   	      //å¼€å§‹æŒ‰é’®
+   	      JButton b=new JButton("å¼€å§‹");
    	      b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					float s=mycap.getpacket(mycap.opendevices(devices));
-					l.setText("tcpÁ÷Á¿"+0.91+"KB"
+					l.setText("tcpæµé‡"+0.91+"KB"
 					 		);
 				} catch (IOException e1) {
-					// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+					// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
 					e1.printStackTrace();
-				}               //°´Å¥µã»÷¶¯×÷
+				}               //æŒ‰é’®ç‚¹å‡»åŠ¨ä½œ
 			}	
 			
    	      });
@@ -56,8 +59,8 @@ public class MainWin extends JFrame {
 	      g2.gridx=0;   g2.gridy=2;
 	      g2.gridheight=2; g2.gridwidth=2;
    	      c.add(b,g2);
-          //ÔİÍ£
-   	   JButton z=new JButton("ÇåÁã");
+          //æš‚åœ
+   	   JButton z=new JButton("æ¸…é›¶");
 	      z.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
