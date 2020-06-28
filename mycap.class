@@ -1,0 +1,60 @@
+import java.io.IOException;
+
+import javax.swing.JOptionPane;
+import java.util.Scanner;
+import jpcap.JpcapCaptor;   
+import jpcap.NetworkInterface;   
+import jpcap.PacketReceiver;   
+import jpcap.packet.Packet;   
+/**  
+ * 使用jpcap统计tcp流量.  
+ * @author 梁鸿健  
+ */  
+public class mycap {   
+       boolean working=true;
+       float length=0;
+       Packet packet;
+   public  NetworkInterface[]  getdevices (){   
+	   //获取本机上的网络接口对象数组  
+	   NetworkInterface[] devices = JpcapCaptor.getDeviceList();
+	   return  devices ;  
+   } 
+   public JpcapCaptor opendevices (NetworkInterface devices) {
+	   /* 
+		  打开网络接口	   
+	   */	
+	  
+	   try {		   
+	   JpcapCaptor jpcap = JpcapCaptor.openDevice(devices, 65535, false, 50);
+	   return jpcap;
+	   } catch (IOException e) {
+			e.printStackTrace();
+		}
+      return null;
+   }
+   public  float getpacket(JpcapCaptor jpcap) throws IOException {
+	   jpcap.setFilter("tcp",true);
+	   float f=1;
+	   
+	   for(int i=100;i>0;i--) { 
+		   packet=jpcap.getPacket();
+		   if(packet!=null&&working==true) {
+	       f++;
+	      //f[0]+=(float)packet.len/1024;
+			  // System.out.println(packet);
+		   }
+		   
+   }
+	 return f;  
+   }	   
+   public synchronized void stop()  {
+   
+      length=0;
+   }
+   
+   public static void main(String args[]) throws IOException, InterruptedException{ 
+	 mycap cap=new mycap();
+	 cap.getpacket(cap.opendevices(cap.getdevices()[2]));
+	   
+   }
+   }
